@@ -32,6 +32,10 @@ class Line
     Line.new({:name => results['name'], :id => results['id']})
   end
 
+  def delete
+    DB.exec("DELETE FROM lines WHERE id = #{@id};")
+  end
+
   def add_station(sta_id)
     DB.exec("INSERT INTO stops (stations_id,lines_id) VALUES (#{sta_id}, #{@id});")
   end

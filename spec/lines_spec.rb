@@ -37,8 +37,13 @@ describe Line do
     expect(new_line.get_stations).to eq [new_station]
   end
 
-  it 'shows the correlation between lines and stations' do
-
+  it 'deletes a line' do
+    line1 = Line.new({:name => 'blue'})
+    line1.save
+    line2 = Line.new({:name => 'green'})
+    line2.save
+    line1.delete
+    expect(Line.all).to eq [line2]
   end
 
   describe '.find' do

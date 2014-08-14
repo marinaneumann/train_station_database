@@ -18,6 +18,10 @@ attr_accessor :name, :id
     @stations
   end
 
+  def delete
+    DB.exec("DELETE FROM stations WHERE id = #{@id};")
+  end
+
   def save
     result = DB.exec("INSERT INTO stations (name) VALUES ('#{name}') RETURNING id;")
     @id = result.first['id'].to_i

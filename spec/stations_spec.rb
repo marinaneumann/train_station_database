@@ -23,5 +23,12 @@ describe Station do
     expect(new_station).to eq new_station1
   end
 
-
+it 'deletes a station' do
+    station1 = Station.new({:name => 'hotspot'})
+    station1.save
+    station2 = Station.new({:name => 'green grasslands'})
+    station2.save
+    station1.delete
+    expect(Station.all).to eq [station2]
+  end
 end
