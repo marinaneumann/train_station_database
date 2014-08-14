@@ -1,4 +1,4 @@
-require 'pry'
+require 'pg'
 
 class Line
 
@@ -27,8 +27,13 @@ class Line
     self.name == another_line.name
   end
 
-  def add_station(new_station)
-    DB.exec("INSERT INTO stops (stations_id,lines_id) VALUES (#{new_station.id}, #{@id});")
+  def self.find(search_id)
+    results = DB.exec("SELECT * FROM lines WHERE id = #{search_id};")[0]
+    Line.new({:name => results['name'], :id => results['id']})
+  end
+
+  def add_station(sta_id)
+    DB.exec("INSERT INTO stops (stations_id,lines_id) VALUES (#{sta_id}, #{@id});")
   end
 
   def get_stations

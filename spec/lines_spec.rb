@@ -33,11 +33,20 @@ describe Line do
     new_station1.save
     new_station2 = Station.new({:name => 'Beat Street'})
     new_station2.save
-    new_line.add_station(new_station)
-    new_line.add_station(new_station1)
-    new_line.add_station(new_station2)
-    expect(new_line.get_stations).to eq [new_station, new_station1, new_station2]
+    new_line.add_station(new_station.id)
+    expect(new_line.get_stations).to eq [new_station]
   end
 
+  it 'shows the correlation between lines and stations' do
+
+  end
+
+  describe '.find' do
+    it 'returns the line from the database with the matching id' do
+      line = Line.new({:name => 'work', :id => 1})
+      line.save
+      expect(Line.find(line.id)).to eq line
+    end
+  end
 
 end

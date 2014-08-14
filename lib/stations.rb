@@ -1,3 +1,5 @@
+require 'pg'
+
 class Station
 
 attr_accessor :name, :id
