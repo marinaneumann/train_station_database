@@ -24,4 +24,20 @@ describe Line do
   end
 
 
+  it 'adds stations into a line' do
+    new_station = Station.new({:name => 'Nacho Land'})
+    new_station.save
+    new_line = Line.new({:name => 'Green'})
+    new_line.save
+    new_station1 = Station.new({:name => 'Lunch Heaven'})
+    new_station1.save
+    new_station2 = Station.new({:name => 'Beat Street'})
+    new_station2.save
+    new_line.add_station(new_station)
+    new_line.add_station(new_station1)
+    new_line.add_station(new_station2)
+    expect(new_line.get_stations).to eq [new_station, new_station1, new_station2]
+  end
+
+
 end

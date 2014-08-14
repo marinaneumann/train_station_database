@@ -23,4 +23,5 @@ describe Station do
     expect(new_station).to eq new_station1
   end
 
+
 end
