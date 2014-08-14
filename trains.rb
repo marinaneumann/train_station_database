@@ -31,7 +31,8 @@ def operator_menu
     puts "(= Operator Menu =)"
     puts "[1] Create a new line"
     puts "[2] Create a new station"
-    puts "[3] Add a line with stations"
+    puts "[3] Add a station to a line"
+    puts "[4] Delete a line"
     puts "[x] Exit to Main Menu\n\n"
     print "Choose option: "
     menu_choice = gets.chomp
@@ -41,6 +42,8 @@ def operator_menu
       create_station
     elsif menu_choice == '3'
       add_station_to_line
+    elsif menu_choice == '4'
+      delete_line
     elsif menu_choice == 'x'
       main_menu
     else
@@ -54,6 +57,7 @@ def rider_menu
     puts "(= Rider Menu =)"
     puts "[1] View train lines"
     puts "[2] View train stations"
+    puts "[3] Delete a station"
     puts "[x] Exit to Main Menu\n\n"
     print "Choose option: "
     menu_choice = gets.chomp
@@ -61,6 +65,8 @@ def rider_menu
       view_lines
     elsif menu_choice == '2'
       view_stations
+    elsif menu_choice == '3'
+      delete_station
     elsif menu_choice == 'x'
       main_menu
     else
@@ -73,14 +79,32 @@ def create_line
   puts "Enter a description of the line: "
   line_input = gets.chomp
   Line.new({:name =>line_input}).save
-  puts "#{Line.all.last} added to the train lines.\n\n"
+  puts "#{Line.all.last.name} added to the train lines.\n\n"
 end
 
 def create_station
   puts "Enter a description of the station: "
   station_input = gets.chomp
   Station.new({:name => station_input}).save
-  puts "#{Station.all.last} added to the train stations"
+  puts "#{Station.all.last.name} added to the train stations"
+end
+
+def delete_line
+  view_lines
+  puts "Which line would you like to delete?"
+  line_choice = gets.chomp.to_i
+  current_line = Line.find(line_choice)
+  current_line.delete
+  view_lines
+end
+
+def delete_station
+  view_stations
+  puts "Which station would you like to delete?"
+  station_choice = gets.chomp.to_i
+  current_station = Station.find(station_choice)
+  current_station.delete
+  view_stations
 end
 
 def view_lines

@@ -30,4 +30,10 @@ attr_accessor :name, :id
   def ==(another_station)
       self.id == another_station.id && self.name == another_station.name
   end
+
+  def self.find(search_id)
+    results = DB.exec("SELECT * FROM stations WHERE id = #{search_id};")[0]
+    Station.new({:name => results['name'], :id => results['id']})
+  end
+
 end
