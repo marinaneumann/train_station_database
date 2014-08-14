@@ -1,6 +1,6 @@
 class Line
 
-  attr_reader :name, :id
+  attr_accessor :name, :id
 
   def initialize(attributes)
     @name = attributes[:name]
